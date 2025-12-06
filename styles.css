@@ -1,0 +1,153 @@
+/* CBC Extension isolated CSS */
+
+/* Kill CBC grid wrapper completely */
+#content > div.detail.detailBody.pageComponent > div.detailBodyContainer.withSidebar {
+    display: block !important;
+    max-width: 1086px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    grid-template-columns: none !important;
+    grid: none !important;
+}
+.withFlex { display: block !important; width: 100% !important; max-width: 1086px !important; margin: 1rem auto 0 !important; }
+
+.detailMainCol,
+.contentContainer,
+.storyWrapper,
+.story {
+    max-width: 900px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
+
+.detailMainCol p,
+.story p {
+    font-size: 1.12rem !important;
+    line-height: 1.6 !important;
+}
+
+/* CBC ad containers */ */
+.adContainer-F11hw,
+.ad-risingstar-container,
+.ad-risingstar,
+.ad-in-read,
+.ad-in-read-double,
+.ad-bigbox-sticky,
+.ad-detail,
+.risingstar-placeholder,
+.risingstar-NLpZ6,
+.risingstar-size-small,
+.in-read-double-NumGh,
+.in-read-SPN_4,
+.bigbox-sticky-yhjAb,
+[data-cy="in-read"],
+[data-testid="ads-in-read"],
+[data-cy="in-read-double"],
+[data-testid="ads-in-read-double"],
+[data-cy="risingstar"],
+[data-testid="ads-risingstar"],
+[data-cy="risingstar-fixed"],
+[data-testid="ads-risingstar-fixed"],
+[data-cy="bigbox-sticky"],
+[data-testid="ads-bigbox-sticky"] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Google ad infrastructure */
+div[id^="google_ads_iframe_"],
+iframe[id^="google_ads_iframe_"],
+iframe[data-is-safeframe="true"],
+iframe[src*="googlesyndication.com"],
+iframe[src*="doubleclick"],
+iframe[src*="ad"] {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+.detailSideRail:not(.comments):not([id^="comments-"]),
+.stickyContainer,
+.stickyRailAd,
+.detailDiscovery,
+.trendingList-sidebar,
+.trendingList,
+.verticalCardList,
+.cardDiscovery,
+.bigBoxContainer,
+.fixedBigBoxContainer,
+/* Protect comments before layout wipe */
+.withFlex > div.comments,
+.withFlex > div[id^="comments-"],
+.withFlex > div .comments,
+.withFlex > div .cbc-vf,
+.withFlex > div .viafoura {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Sidebar/layout wipe */
+.withFlex > div:not(.detailMainCol):not([id^="comments-"]) {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.withFlex > div:not(.detailMainCol):not([id^="comments-"])(.detailMainCol) {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Keep comments */
+.comments,
+.cbc-vf,
+.comments-KGGxt,
+[id^="comments-"],
+.viafoura,
+vf-widget#vf-conversations {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Remove CBC forced-consent popups */
+.fc-consent-root,
+.fc-dialog-overlay,
+.fc-dialog-container,
+.fc-dialog,
+.fc-dialog-content,
+.fc-dialog-scrollable-content,
+.fc-header,
+.fc-footer,
+.fc-footer-buttons-container,
+.fc-footer-buttons,
+.fc-preference-container,
+.fc-preferences-container,
+.fc-navigation,
+.fc-stacks,
+.fc-faq-header,
+.fc-faq-contents,
+.fc-preference-description,
+.fc-preference-title,
+.fc-button,
+.fc-focus-trap-pre-div,
+.fc-focus-trap-post-div,
+.fc-dialog-restricted-content,
+/* Extra fallback blockers */
+#fc-dialog-root,
+#fc-consent-banner,
+[data-testid="consent-manager"],
+[data-testid="consent-modal"],
+[class*="consent"],
+[class*="fc-"],
+[class^="fc-"] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+}
