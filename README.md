@@ -1,6 +1,11 @@
 # adfree.CBC
-CBC.ca website cleaner: strips ads, comments, popups, widgets, trackers—shows just the article with minimal litter. Fast, distraction-free reading. We already pay them enough to deliver their fake news, last thing they should be doing is profiting via questionable ads while impressioning us. Take a stand. We are one of the only people who fund a state media conglomerate and still see their budget of over a billion not big enough to spare us these nickle and dime earning eyesores. 
---------------
+
+CBC.ca website cleaner: strips ads, comments, popups, widgets, trackers—shows just the article with minimal litter. Fast, distraction-free reading.
+
+> We already pay them enough to deliver their fake news, last thing they should be doing is profiting via questionable ads while impressioning us. Take a stand. We are one of the only people who fund a state media conglomerate and still see their budget of over a billion not big enough to spare us these nickel and dime earning eyesores.
+
+---
+
 
 ## CBC CleanView Extension
 
@@ -10,21 +15,22 @@ CBC CleanView is a browser extension that strips all ads, comments, popups, Viaf
 
 ## ✨ Features
 
-- Removes ads, comments, Viafoura, popups, modals, consent banners
-- Prevents dynamic reinjection of ad/comment nodes
-- No prompts, no extra scripts, no widgets
-- No trackers, no listeners—just a clean article view
-- Leaves core content and a minimal, basic header
+- Removes all ad containers and dynamic ad injections
+- Blocks Viafoura comment sections and widgets
+- Removes cookie consent and GDPR popups
+- Hides overlays, modals, and floating prompts
+- Stops React and other scripts from recreating blocked elements
+- Leaves a clean, readable CBC experience
 
 ---
 
 ## 🚀 Installation
 
-1. Download or clone this repository.
-2. Load as an unpacked extension in your browser.  
-   - Chrome: Go to `chrome://extensions/`, enable "Developer mode", click "Load unpacked", and select this folder.
-   - Firefox: Go to `about:debugging`, click "This Firefox", "Load Temporary Add-on", and select the manifest file.
-   - Edge: Go to `edge://extensions/`, enable "Developer mode", "Load unpacked", and select this folder.
+1. **Clone or Download** this repository.
+2. Open your browser’s extensions page (e.g. `chrome://extensions/`).
+3. Enable **Developer Mode**.
+4. Click **Load unpacked** and select the `adfree.cbc` folder.
+5. Browse CBC.ca — enjoy the clean page.
 
 ---
 
@@ -34,6 +40,23 @@ Just install and reload any CBC article page. All clutter and distractions will 
 No extra setup, no options.
 
 ---
+
+## File Structure
+
+```
+adfree.cbc/
+├── manifest.json
+├── content.js
+├── styles.css
+```
+
+
+- `manifest.json` — Extension manifest/config
+- `content.js` — Main script for removing unwanted elements
+- `styles.css` — Extra style overrides (if needed)
+
+---
+
 
 ## 📄 License
 
