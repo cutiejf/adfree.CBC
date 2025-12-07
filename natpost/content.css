@@ -1,0 +1,13 @@
+/* Remove blank gaps left by ads */
+div[style*='height'], div[style*='min-height'] {
+    height: auto !important;
+    min-height: 0 !important;
+}
+
+/* Improve article readability */
+.article-body, .article-content {
+    max-width: 700px !important;
+    margin: auto !important;
+    font-size: 18px !important;
+    line-height: 1.55 !important;
+}
