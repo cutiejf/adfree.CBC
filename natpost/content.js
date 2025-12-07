@@ -6,6 +6,7 @@
 
     function nukeScripts(node) {
         if (!node) return node;
+        // Blanket removal may break layout; consider allowlist refinement
         if (block.includes(node.tagName?.toLowerCase())) return document.createComment("");
         return node;
     }
@@ -19,6 +20,7 @@
 })();
 
 // Remove all existing scripts immediately
+// Broad removal noted; potential for controlled allowlist
 document.querySelectorAll("script, iframe, noscript").forEach(e => e.remove());
 
 // Auto-remove reinjected garbage
@@ -63,7 +65,6 @@ new MutationObserver(mutations => {
         [...m.addedNodes].forEach(n => {
             if (n.nodeType !== 1) return;
 
-            // Strip scripts, ads, identity junk
             if (n.matches?.("script, iframe, noscript")) n.remove();
 
             killList.forEach(sel => {
@@ -106,37 +107,26 @@ new MutationObserver(mutations => {
             a.remove();
         }
     });
-    /********************************************************************
- * KEEP YELLOW HEADER
- * (Do nothing unless a header-kill selector removes too much)
- ********************************************************************/
 
 (function keepHeader() {
     const header = document.querySelector("header");
     if (!header) return;
 
-    // Remove ONLY account, subscribe, newsletter, junk inside header
     header.querySelectorAll(
         ".subscribe, .subscription, .account, .identity, .login, [data-testid='Account'], .np-account-bar"
     ).forEach(e => e.remove());
 
-    // Ensure header stays visible
     header.style.display = "block";
     header.style.visibility = "visible";
 })();
 
-
-/********************************************************************
- * NUKE ALL VIDEOS (JW Player + wrappers + placeholders)
- ********************************************************************/
-
+// Remove all videos
 (function removeVideos() {
     document.querySelectorAll(".embedded-video, .jwplayer-wrapper, [data-provider='jwplayer']").forEach(e => {
         e.remove();
     });
 })();
 
-// Keep killing any video resurrected by MutationObserver load
 new MutationObserver(m => {
     m.forEach(record => {
         [...record.addedNodes].forEach(n => {
@@ -151,32 +141,20 @@ new MutationObserver(m => {
     });
 }).observe(document.documentElement, { childList: true, subtree: true });
 
-
-/********************************************************************
- * FIX IMAGES NOT LOADING
- * National Post lazy-loads images using data-src / data-srcset — we force-load them.
- ********************************************************************/
-
+// Fix lazy-loaded images
 (function fixImages() {
     document.querySelectorAll("img").forEach(img => {
         const ds = img.getAttribute("data-src");
         const dss = img.getAttribute("data-srcset");
 
-        if (ds && (!img.src || img.src.includes("spinner") || img.src === "")) {
-            img.src = ds;
-        }
+        if (ds && (!img.src || img.src.includes("spinner") || img.src === "")) img.src = ds;
+        if (dss && (!img.srcset || img.srcset === "")) img.srcset = dss;
 
-        if (dss && (!img.srcset || img.srcset === "")) {
-            img.srcset = dss;
-        }
-
-        // Fallback: ensure images become visible
         img.loading = "eager";
         img.decoding = "async";
     });
 })();
 
-// Fix images that appear later via DOM mutations
 new MutationObserver(m => {
     m.forEach(record => {
         [...record.addedNodes].forEach(n => {
@@ -191,9 +169,4 @@ new MutationObserver(m => {
             });
         });
     });
-}).observe(document.documentElement, {
-    childList: true,
-    subtree: true
-});
-
-})();
+}).observe(document.documentElement, { childL
