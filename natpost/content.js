@@ -106,4 +106,94 @@ new MutationObserver(mutations => {
             a.remove();
         }
     });
+    /********************************************************************
+ * KEEP YELLOW HEADER
+ * (Do nothing unless a header-kill selector removes too much)
+ ********************************************************************/
+
+(function keepHeader() {
+    const header = document.querySelector("header");
+    if (!header) return;
+
+    // Remove ONLY account, subscribe, newsletter, junk inside header
+    header.querySelectorAll(
+        ".subscribe, .subscription, .account, .identity, .login, [data-testid='Account'], .np-account-bar"
+    ).forEach(e => e.remove());
+
+    // Ensure header stays visible
+    header.style.display = "block";
+    header.style.visibility = "visible";
+})();
+
+
+/********************************************************************
+ * NUKE ALL VIDEOS (JW Player + wrappers + placeholders)
+ ********************************************************************/
+
+(function removeVideos() {
+    document.querySelectorAll(".embedded-video, .jwplayer-wrapper, [data-provider='jwplayer']").forEach(e => {
+        e.remove();
+    });
+})();
+
+// Keep killing any video resurrected by MutationObserver load
+new MutationObserver(m => {
+    m.forEach(record => {
+        [...record.addedNodes].forEach(n => {
+            if (n.nodeType !== 1) return;
+            if (
+                n.matches?.(".embedded-video, .jwplayer-wrapper, [data-provider='jwplayer']") ||
+                n.querySelector?.(".embedded-video, .jwplayer-wrapper, [data-provider='jwplayer']")
+            ) {
+                n.remove();
+            }
+        });
+    });
+}).observe(document.documentElement, { childList: true, subtree: true });
+
+
+/********************************************************************
+ * FIX IMAGES NOT LOADING
+ * National Post lazy-loads images using data-src / data-srcset — we force-load them.
+ ********************************************************************/
+
+(function fixImages() {
+    document.querySelectorAll("img").forEach(img => {
+        const ds = img.getAttribute("data-src");
+        const dss = img.getAttribute("data-srcset");
+
+        if (ds && (!img.src || img.src.includes("spinner") || img.src === "")) {
+            img.src = ds;
+        }
+
+        if (dss && (!img.srcset || img.srcset === "")) {
+            img.srcset = dss;
+        }
+
+        // Fallback: ensure images become visible
+        img.loading = "eager";
+        img.decoding = "async";
+    });
+})();
+
+// Fix images that appear later via DOM mutations
+new MutationObserver(m => {
+    m.forEach(record => {
+        [...record.addedNodes].forEach(n => {
+            if (n.nodeType !== 1) return;
+
+            n.querySelectorAll?.("img").forEach(img => {
+                const ds = img.getAttribute("data-src");
+                const dss = img.getAttribute("data-srcset");
+
+                if (ds && !img.src) img.src = ds;
+                if (dss && !img.srcset) img.srcset = dss;
+            });
+        });
+    });
+}).observe(document.documentElement, {
+    childList: true,
+    subtree: true
+});
+
 })();
