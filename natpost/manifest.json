@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "AdFree National Post",
+  "version": "1.0",
+  "description": "Removes ads, scripts, comments, paywalls, trackers, LoginRadius identity, and all reinjected clutter from NationalPost.com.",
+  "content_scripts": [
+    {
+      "matches": ["*://nationalpost.com/*", "*://*.nationalpost.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": ["scripting"]
+}
